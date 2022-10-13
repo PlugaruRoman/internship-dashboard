@@ -1,13 +1,26 @@
-import 'ebs-design/dist/styles/index.scss';
-import LoginModal from './components/LoginModal';
-import './styles/App.scss';
+import React from 'react';
 
-function App() {
+import { Routes, Route } from 'react-router-dom';
+
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
+import ControlPanel from './components/ControlPanel';
+
+import 'ebs-design/dist/styles/index.scss';
+import styles from './styles/App.module.scss';
+
+const App: React.FC = () => {
   return (
-    <div className='app'>
-      <LoginModal />
+    <div className={styles.app}>
+      <div>
+        <Routes>
+          <Route path='/' element={<ControlPanel />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/register' element={<RegisterPage />} />
+        </Routes>
+      </div>
     </div>
   );
-}
+};
 
 export default App;

@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "nume": "Roma",
+      "prenume": "Plugaru",
+      "email": "romaplugaru@gmail.com",
+      "gender": "Masculin",
+      "parola": "123456",
+      "checkbox": true
+    },
+    {
+      "id": 2,
+      "nume": "Oleg",
+      "prenume": "Plugaru",
+      "email": "olegplugaru@gmail.com",
+      "gender": "Masculin",
+      "parola": "654321",
+      "checkbox": true
+    }
+  ]
+}
