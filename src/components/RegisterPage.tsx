@@ -6,24 +6,53 @@ import { Form, Input, Select, Checkbox, Button, Icon } from 'ebs-design';
 
 import styles from './RegisterPage.module.scss';
 
-const useInput = (initialValue: string | number) => {
-  const [value, setValue] = React.useState(initialValue);
-  const [isDirty, setDirty] = React.useState(false);
-
-  const onChange = (e: any) => {
-    setValue(e.target.value);
-  };
-
-  const onBlur = (e: any) => {
-    setDirty(true);
-  };
-
-  return { value, onChange, onBlur };
-};
+const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const RegisterPage: React.FC = () => {
-  const email = useInput('');
-  const password = useInput('');
+  const userRef = React.useRef<HTMLInputElement>(null);
+  const errRef = React.useRef();
+
+  const [user, setUser] = React.useState<string>('');
+  const [validName, setValidName] = React.useState(false);
+  const [userFocus, setUserFocus] = React.useState(false);
+
+  const [pwd, setPwd] = React.useState('');
+  const [validPwd, setValidPwd] = React.useState(false);
+  const [pwdFocus, setPwdFocus] = React.useState(false);
+
+  const [matchPwd, setMatchPwd] = React.useState('');
+  const [validMatch, setValidMatch] = React.useState(false);
+  const [matchFocus, setMatchFocus] = React.useState(false);
+
+  const [errMsg, setErrMsg] = React.useState('');
+  const [success, setSuccess] = React.useState(false);
+
+  React.useEffect(() => {
+    if (userRef.current) {
+      userRef.current.focus();
+    }
+  }, []);
+
+  React.useEffect(() => {
+    const result = USER_REGEX.test(user);
+    console.log(result);
+    console.log(user);
+    setValidName(result);
+  }, [user]);
+
+  React.useEffect(() => {
+    const result = PWD_REGEX.test(pwd);
+    console.log(result);
+    console.log(pwd);
+    setValidPwd(result);
+    const match = pwd === matchPwd;
+    setValidMatch(match);
+  }, [pwd, matchPwd]);
+
+  React.useEffect(() => {
+    setErrMsg('');
+  }, [user, pwd, matchPwd]);
 
   return (
     <div className={styles.registerPage}>
@@ -37,14 +66,38 @@ const RegisterPage: React.FC = () => {
                 <b className={styles.blueText}> Sign In</b>
               </Link>
             </span>
+            <p
+              ref={errRef.current}
+              className={errMsg ? 'errmsg' : 'offscreen'}
+              aria-live='assertive'
+            >
+              {errMsg}
+            </p>
           </div>
           <Input
             className={styles.input}
             type='text'
-            onChange={function noRefCheck() {}}
+            id='username'
+            ref={userRef}
+            autoComplete='off'
+            onChange={(e) => setUser(String(e))}
+            required
+            aria-invalid={validName ? 'false' : true}
+            aria-describedby='uidnote'
+            onFocus={() => setUserFocus(true)}
+            onBlur={() => setUserFocus(false)}
             placeholder='Nume'
             size='large'
           />
+          <p
+            id='uidnote'
+            className={
+              userFocus && user && !validName ? 'instructions' : 'offscreen'
+            }
+          >
+            4 to 24 characters . Must begin with a letter. Letters , numbers ,
+            underscores , hyphens allowed .
+          </p>
           <Input
             className={styles.input}
             type='text'
@@ -57,9 +110,6 @@ const RegisterPage: React.FC = () => {
             type='email'
             placeholder='Email'
             size='large'
-            value={email.value}
-            onChange={(e) => email.onChange(e)}
-            onBlur={(e) => email.onBlur(e)}
           />
           <Select
             className={styles.input}
@@ -75,9 +125,6 @@ const RegisterPage: React.FC = () => {
             type='password'
             placeholder='Parola'
             size='large'
-            value={password.value}
-            onChange={(e) => password.onChange(e)}
-            onBlur={(e) => password.onBlur(e)}
           />
           <Input
             className={styles.input}
