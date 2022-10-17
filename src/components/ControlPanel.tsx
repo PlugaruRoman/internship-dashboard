@@ -1,10 +1,31 @@
 import React from 'react';
 
+import axios from 'axios';
+
+import { useQuery } from 'react-query';
+
 import { Layout, Button, AvatarInline, Sidebar, Icon, Table } from 'ebs-design';
+
+import { Users } from '../types/usertype';
 
 import styles from './ControlPanel.module.scss';
 
 const ControlPanel: React.FC = () => {
+  const { data } = useQuery(
+    ['user'],
+    () => {
+      return axios
+        .get<Users[]>(`http://localhost:3001/users`)
+        .then((data) => data.data);
+    },
+
+    {
+      onError: (error: any) => {
+        alert(error);
+      },
+    }
+  );
+
   return (
     <Layout>
       <Layout.Topbar>
@@ -34,55 +55,40 @@ const ControlPanel: React.FC = () => {
         </div>
       </Sidebar>
 
-      <Layout.Content>
-        <Table
-          columns={[
-            {
-              dataIndex: 'name',
-              title: 'Nume și Prenume',
-            },
-            {
-              dataIndex: 'id',
-              title: 'ID',
-            },
-            {
-              dataIndex: 'email',
-              title: 'Email',
-            },
-            {
-              dataIndex: 'gender',
-              title: 'Gender',
-            },
-          ]}
-          data={[
-            {
-              name: 'afwa gawgag',
-              id: '44',
-              email: 'afagawg@gmail.com',
-              gender: 'Masculin',
-            },
-            {
-              name: 'afffasfasfwa gaaawgag',
-              id: '4',
-              email: '1231412412@gmail.com',
-              gender: 'Masculin',
-            },
-            {
-              name: 'aaaaaa bbbbbbbbb',
-              id: '454',
-              email: 'awfawf2222g@gmail.com',
-              gender: 'Masculin',
-            },
-            {
-              name: 'awgawga gawfawag',
-              id: '414',
-              email: 'afagagawgawgwg@gmail.com',
-              gender: 'Masculin',
-            },
-          ]}
-          size='medium'
-        />
-      </Layout.Content>
+      {data && (
+        <Layout.Content>
+          <Table
+            columns={[
+              {
+                dataIndex: 'name',
+                title: 'Nume și Prenume',
+              },
+              {
+                dataIndex: 'id',
+                title: 'ID',
+              },
+              {
+                dataIndex: 'email',
+                title: 'Email',
+              },
+              {
+                dataIndex: 'gender',
+                title: 'Gender',
+              },
+            ]}
+            data={data.map((el) => {
+              return {
+                name: `${el.user} ${el.userSecondName}`,
+                id: el.id,
+                email: el.userMail,
+                gender: el.selectedGender,
+              };
+            })}
+            size='medium'
+          />
+        </Layout.Content>
+      )}
+
       <Layout.Footer />
     </Layout>
   );

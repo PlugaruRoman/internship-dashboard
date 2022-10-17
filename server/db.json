@@ -1,22 +1,31 @@
 {
   "users": [
     {
-      "id": 1,
-      "nume": "Roma",
-      "prenume": "Plugaru",
-      "email": "romaplugaru@gmail.com",
-      "gender": "Masculin",
-      "parola": "123456",
-      "checkbox": true
+      "user": "Roma",
+      "userSecondName": "Plugaru",
+      "userMail": "romaplugaru@mail.ru",
+      "selectedGender": "masculin",
+      "pwd": "Plugaruroma94$",
+      "isChecked": true,
+      "id": 1
     },
     {
-      "id": 2,
-      "nume": "Oleg",
-      "prenume": "Plugaru",
-      "email": "olegplugaru@gmail.com",
-      "gender": "Masculin",
-      "parola": "654321",
-      "checkbox": true
+      "user": "test",
+      "userSecondName": "test",
+      "userMail": "test@mail.com",
+      "selectedGender": "---",
+      "pwd": "Test21!@#",
+      "isChecked": true,
+      "id": 2
+    },
+    {
+      "user": "test2",
+      "userSecondName": "test2",
+      "userMail": "test2@mail.ru",
+      "selectedGender": "feminin",
+      "pwd": "Stark21$",
+      "isChecked": true,
+      "id": 3
     }
   ]
 }
