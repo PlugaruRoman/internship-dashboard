@@ -1,14 +1,17 @@
 export interface User {
-  text: string;
-  value: string;
-}
-
-export interface Users {
-  user: string;
-  userSecondName: string;
-  userMail: string;
+  firstName: string;
+  lastName: string;
+  mail: string;
   selectedGender: string;
   pwd: string;
   isChecked: boolean;
+  id: number;
+}
+
+export interface Post {
+  title: string;
+  description: string;
+  img: string;
+  time: string;
   id: number;
 }

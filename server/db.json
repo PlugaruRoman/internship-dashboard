@@ -1,31 +1,63 @@
 {
   "users": [
     {
-      "user": "Roma",
-      "userSecondName": "Plugaru",
-      "userMail": "romaplugaru@mail.ru",
+      "firstName": "awfaw",
+      "lastName": "agawawg",
+      "mail": "awfawga@mail.ru",
       "selectedGender": "masculin",
       "pwd": "Plugaruroma94$",
       "isChecked": true,
-      "id": 1
+      "id": 7
     },
     {
-      "user": "test",
-      "userSecondName": "test",
-      "userMail": "test@mail.com",
-      "selectedGender": "---",
-      "pwd": "Test21!@#",
+      "firstName": "star",
+      "lastName": "star1",
+      "mail": "parara@mail.com",
+      "selectedGender": "feminin",
+      "pwd": "Star1!!!",
       "isChecked": true,
+      "id": 8
+    },
+    {
+      "firstName": "afwaf",
+      "lastName": "afwawfa",
+      "mail": "aawfawf@mail.ru",
+      "selectedGender": "---",
+      "pwd": "SuperParoli1999$",
+      "isChecked": true,
+      "id": 9
+    },
+    {
+      "firstName": "ajfawf",
+      "lastName": "afawfawf",
+      "mail": "awfawg@gmail.com",
+      "selectedGender": "---",
+      "pwd": "Pasword1234$",
+      "isChecked": true,
+      "id": 10
+    }
+  ],
+  "posts": [
+    {
+      "title": "about some",
+      "description": "some description",
+      "img": "img",
+      "time": "10.18.22",
       "id": 2
     },
     {
-      "user": "test2",
-      "userSecondName": "test2",
-      "userMail": "test2@mail.ru",
-      "selectedGender": "feminin",
-      "pwd": "Stark21$",
-      "isChecked": true,
+      "title": "about some",
+      "description": "some description",
+      "img": "img",
+      "time": "10.18.22",
       "id": 3
+    },
+    {
+      "title": "about some",
+      "description": "some description",
+      "img": "img",
+      "time": "10.18.22",
+      "id": 4
     }
   ]
 }
