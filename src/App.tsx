@@ -4,6 +4,8 @@ import { Routes, Route } from 'react-router-dom';
 
 import { QueryClientProvider, QueryClient } from 'react-query';
 
+import { PostProvider } from './context';
+
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ControlPanel from './pages/ControlPanel';
@@ -15,15 +17,17 @@ const queryClient = new QueryClient();
 
 const App: React.FC = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <div className={styles.app}>
-        <Routes>
-          <Route path='/*' element={<ControlPanel />} />
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/register' element={<RegisterPage />} />
-        </Routes>
-      </div>
-    </QueryClientProvider>
+    <PostProvider>
+      <QueryClientProvider client={queryClient}>
+        <div className={styles.app}>
+          <Routes>
+            <Route path='/*' element={<ControlPanel />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/register' element={<RegisterPage />} />
+          </Routes>
+        </div>
+      </QueryClientProvider>
+    </PostProvider>
   );
 };
 

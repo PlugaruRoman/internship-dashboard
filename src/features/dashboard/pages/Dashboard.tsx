@@ -56,7 +56,7 @@ const Dashboard: React.FC = () => {
     },
   ];
   return (
-    <ResponsiveContainer width='100%' aspect={2}>
+    <ResponsiveContainer width='100%' aspect={3}>
       <BarChart
         width={500}
         height={300}
