@@ -37,7 +37,6 @@ const RegisterPage: React.FC = () => {
   const onChangeFirstName = React.useCallback(
     (value: React.SetStateAction<string | number>) => {
       setFirstName(value);
-      console.log(value);
     },
     []
   );
@@ -85,6 +84,7 @@ const RegisterPage: React.FC = () => {
     e.preventDefault();
     try {
       await axios.post(`http://localhost:3001/users`, {
+        id: Date.now(),
         firstName,
         lastName,
         mail,

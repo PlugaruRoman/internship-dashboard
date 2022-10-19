@@ -1,66 +1,56 @@
 import React from 'react';
 
-import { Button, Card, Space, Table } from 'ebs-design';
-import { Post } from '../../../types/usertype';
+import { Button, Card, Row, Space, Col } from 'ebs-design';
 
-import styles from './PostCard.module.scss';
 import PostModal from './PostModal';
 
-type PostCardProsp = {
-  post: Post;
-};
+import { usePost } from '../../../context';
 
-const PostCard: React.FC<PostCardProsp> = ({ post }) => {
-  const [popUp, setPopUp] = React.useState(false);
+import { PostCardProps } from '../../../types/postCardProps';
 
-  const changeStatePopUp = () => {
-    setPopUp((prev) => !prev);
-  };
+import styles from './PostCard.module.scss';
+import { Link } from 'react-router-dom';
+
+const PostCard: React.FC<PostCardProps> = ({ post }) => {
+  const { popUp, getPostId } = usePost();
+
   return (
     <>
-      {popUp && <PostModal post={post} popUp={popUp} />}
+      {popUp && <PostModal />}
+
       <div className={styles.card}>
         <Card className='' collapsible size='small'>
           <Space align='center' justify='space-between'>
             <Space align='center'>
-              <h2 className={styles.title}>Titlu: {post.title}</h2>
+              <h2 className={styles.title}>Title: {post.title}</h2>
             </Space>
             <div>
-              <Button className={styles.button} type='primary'>
-                Edit
-              </Button>
-              <Button className={styles.button} onClick={changeStatePopUp}>
+              <Link to={`/posts/${post.id}/edit`}>
+                <Button
+                  onClick={() => getPostId(post.id)}
+                  className={styles.button}
+                  type='primary'
+                >
+                  Edit
+                </Button>
+              </Link>
+              <Button
+                className={styles.button}
+                onClick={() => getPostId(post.id)}
+              >
                 Delete
               </Button>
             </div>
           </Space>
-
-          <Table
-            columns={[
-              {
-                dataIndex: 'desc',
-                key: 'desc',
-                title: 'Descriere',
-              },
-              {
-                dataIndex: 'img',
-                key: 'img',
-                title: 'Imagine',
-              },
-              {
-                dataIndex: 'date',
-                key: 'date',
-                title: 'Data',
-              },
-            ]}
-            data={[
-              {
-                date: post.time,
-                desc: post.description,
-                img: post.img,
-              },
-            ]}
-          />
+          <Row className='mb-16'>
+            <Col size={8}>
+              <div className={styles.postDescription}>{post.description}</div>
+            </Col>
+            <Col>{<img src={post.img} alt='post img' />}</Col>
+          </Row>
+          <Col size={3}>
+            <div className={styles.postDate}>Post date : {post.date}</div>
+          </Col>
         </Card>
       </div>
     </>

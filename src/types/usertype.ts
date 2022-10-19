@@ -7,11 +7,3 @@ export interface User {
   isChecked: boolean;
   id: number;
 }
-
-export interface Post {
-  title: string;
-  description: string;
-  img: string;
-  time: string;
-  id: number;
-}

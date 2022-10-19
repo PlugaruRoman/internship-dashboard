@@ -17,7 +17,9 @@ const ControlPanel: React.FC = () => {
       <Layout.Topbar>
         <Layout.Topbar.Toggler />
         <Layout.Topbar.Title>
-          <Link to={'/login'}>Control Panel</Link>
+          <Link className={styles.title} to={'/login'}>
+            Control Panel
+          </Link>
         </Layout.Topbar.Title>
         <Layout.Topbar.RightSide>
           <Button type='ghost' icon='bell' />
@@ -55,7 +57,7 @@ const ControlPanel: React.FC = () => {
       <Layout.Content>
         <Routes>
           <Route path='/users' element={<Users />} />
-          <Route path='/posts' element={<Posts />} />
+          <Route path='/posts/*' element={<Posts />} />
           <Route path='/dashboard' element={<Dashboard />} />
         </Routes>
       </Layout.Content>
