@@ -4,23 +4,29 @@ import axios from 'axios';
 
 import { Modal, Space, Button, Icon } from 'ebs-design';
 
-import { usePost } from '../../../context';
+import { usePost } from 'context';
 
 import styles from './PostModal.module.scss';
 
 const PostModal: React.FC = () => {
-  const { changeStatePopUp, postId } = usePost();
+  const { changeStatePostPopUp, postId } = usePost();
 
   const onClickDeletePost = () => {
     axios.delete(`http://localhost:3001/posts/${postId}`);
-    changeStatePopUp();
+    changeStatePostPopUp();
   };
 
   return (
-    <Modal closeOnClickOutside mask open size='small' title='Delete Post'>
+    <Modal
+      closeOnClickOutside={false}
+      mask
+      open
+      size='small'
+      title='Delete Post'
+    >
       <div className={styles.text}>Are you sure you want to delete post?</div>
       <Space justify='space-between'>
-        <Button className={styles.button} onClick={changeStatePopUp}>
+        <Button className={styles.button} onClick={changeStatePostPopUp}>
           Cancel
         </Button>
         <Button

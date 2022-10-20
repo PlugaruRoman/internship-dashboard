@@ -2,14 +2,13 @@ import React from 'react';
 
 import axios from 'axios';
 
+import { Link } from 'react-router-dom';
+
 import { Button, Form, Input, Textarea } from 'ebs-design';
 
 import styles from './CreatePosts.module.scss';
-import { Link } from 'react-router-dom';
 
 const CreatePosts: React.FC = () => {
-  const userRef = React.useRef<HTMLInputElement>(null);
-
   const [title, setTitle] = React.useState<string | number>('');
 
   const [description, setDescription] = React.useState<string | number>('');
@@ -68,7 +67,7 @@ const CreatePosts: React.FC = () => {
     <div>
       {success ? (
         <div className={styles.onSuccesForm}>
-          <span className={styles.succes}>Successfully ! </span>
+          <h2 className={styles.succesTitle}>Successfully ! </h2>
           <div>
             <Link to='/posts'>
               <Button type='ghost' size='large'>
@@ -82,24 +81,24 @@ const CreatePosts: React.FC = () => {
           <div className={styles.createPostInfo}>
             <span className={styles.formTitle}>Create new Post</span>
           </div>
+
           <Input
             className={styles.input}
             type='text'
             id='title'
             onChange={onChangeTitle}
-            ref={userRef}
+            value={title}
             required
             placeholder='Title'
             size='large'
-            value={title}
           />
 
           <Textarea
             className={styles.input}
             id='description'
             onChange={onChangeDescription}
-            placeholder='Description'
             value={description}
+            placeholder='Description'
           />
 
           <Input
@@ -107,11 +106,10 @@ const CreatePosts: React.FC = () => {
             id='img'
             type='text'
             onChange={onChangeImg}
-            ref={userRef}
+            value={img}
             required
             placeholder='Image link (https://example.com/photos/1@2$3%4)'
             size='large'
-            value={img}
           />
 
           <Input
@@ -119,11 +117,10 @@ const CreatePosts: React.FC = () => {
             id='date'
             type='date'
             onChange={onChangeDate}
-            ref={userRef}
+            value={date}
             required
             placeholder='Date'
             size='large'
-            value={date}
           />
 
           <div className={styles.submitButton}>

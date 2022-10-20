@@ -7,16 +7,6 @@
   overflow-y: hidden;
 }
 
-.form {
-  max-width: 450px;
-  min-height: 600px;
-  margin: 50px auto;
-  background: rgb(255, 255, 255);
-  padding: 0px 30px 0px 30px;
-  border-radius: 20px;
-  position: relative;
-}
-
 .onSuccesForm {
   font-size: 30px;
   margin: 0 auto;
@@ -30,13 +20,44 @@
   padding: 0px 30px 0px 30px;
   border-radius: 20px;
 }
-.succes {
+.message {
   padding-bottom: 20px;
+}
+
+.form {
+  max-width: 450px;
+  min-height: 600px;
+  margin: 50px auto;
+  background: rgb(255, 255, 255);
+  padding: 0px 30px 0px 30px;
+  border-radius: 20px;
+  position: relative;
+}
+
+.registerInfo {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .formTitle {
   font-size: 20px;
   font-weight: bold;
+}
+
+.titleText {
+  font-size: 15px;
+  color: rgb(137, 137, 137);
+}
+
+.titleTextBlue {
+  color: rgb(58, 58, 255);
+  cursor: pointer;
+  transition: color 0.1s linear;
+  &:hover {
+    color: rgb(0, 0, 165);
+  }
 }
 
 .input {
@@ -74,25 +95,6 @@
   width: 100%;
 }
 
-.registerInfo {
-  display: flex;
-  height: 60px;
-  align-items: center;
-  justify-content: space-between;
-}
-.titleText {
-  font-size: 15px;
-  color: rgb(137, 137, 137);
-}
-.blueText {
-  color: rgb(58, 58, 255);
-  cursor: pointer;
-  transition: color 0.1s linear;
-  &:hover {
-    color: rgb(0, 0, 165);
-  }
-}
-
 .instructions {
   color: rgb(0, 0, 0);
   padding: 10px;
@@ -103,8 +105,4 @@
 
 .offscreen {
   display: none;
-}
-
-.errmsg {
-  color: rgb(48, 0, 0);
 }

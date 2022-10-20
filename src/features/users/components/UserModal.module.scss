@@ -1,40 +1,10 @@
-.onSuccesForm {
-  font-size: 30px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 350px;
-  min-height: 200px;
-  background: rgb(255, 255, 255);
-  padding: 0px 30px 0px 30px;
-  border-radius: 20px;
-}
-.succesTitle {
-  padding-bottom: 20px;
-}
-
 .form {
   max-width: 450px;
-  min-height: 450px;
-  margin: 50px auto;
-  background: rgb(255, 255, 255);
+  min-height: 400px;
+  margin: 10px auto;
   padding: 0px 30px 0px 30px;
   border-radius: 20px;
   position: relative;
-}
-
-.createPostInfo {
-  display: flex;
-  height: 60px;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.formTitle {
-  font-size: 20px;
-  font-weight: bold;
 }
 
 .input {
@@ -62,4 +32,28 @@
     color: rgb(255, 255, 255);
     background-color: rgb(72, 72, 255);
   }
+}
+.disabled {
+  width: 100%;
+  padding: 10px;
+  color: rgb(118, 118, 118);
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.buttons {
+  margin: 10px;
+}
+
+.instructions {
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  border: 1px solid red;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.offscreen {
+  display: none;
 }

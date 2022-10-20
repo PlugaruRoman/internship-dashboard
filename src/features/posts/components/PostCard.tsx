@@ -1,25 +1,26 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { Button, Card, Row, Space, Col } from 'ebs-design';
 
 import PostModal from './PostModal';
 
-import { usePost } from '../../../context';
+import { usePost } from 'context';
 
-import { PostCardProps } from '../../../types/postCardProps';
+import { PostCardProps } from 'types/postCardProps';
 
 import styles from './PostCard.module.scss';
-import { Link } from 'react-router-dom';
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
-  const { popUp, getPostId } = usePost();
+  const { postPopUp, getPostId } = usePost();
 
   return (
     <>
-      {popUp && <PostModal />}
+      {postPopUp && <PostModal />}
 
       <div className={styles.card}>
-        <Card className='' collapsible size='small'>
+        <Card collapsible size='small'>
           <Space align='center' justify='space-between'>
             <Space align='center'>
               <h2 className={styles.title}>Title: {post.title}</h2>

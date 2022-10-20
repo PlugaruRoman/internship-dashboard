@@ -7,12 +7,8 @@ import { Form, Input } from 'ebs-design';
 import styles from './LoginPage.module.scss';
 
 const LoginPage: React.FC = () => {
-  const userRef = React.useRef<HTMLInputElement>(null);
-  const errRef = React.useRef();
-
   const [user, setUser] = React.useState<string | number>('');
   const [pwd, setPwd] = React.useState<string | number>('');
-  const [errMsg, setErrMsg] = React.useState<string>('');
 
   const onChangeUser = (value: React.SetStateAction<string | number>) => {
     setUser(value);
@@ -28,19 +24,8 @@ const LoginPage: React.FC = () => {
     setUser('');
   };
 
-  React.useEffect(() => {
-    if (userRef.current) {
-      userRef.current.focus();
-    }
-  }, []);
-
-  React.useEffect(() => {
-    setErrMsg('');
-  }, [user, pwd]);
-
   return (
     <div className={styles.loginPage}>
-      <h2 className={styles.loginTitle}>Panoul de administrare</h2>
       <div className={styles.loginContent}>
         <Form
           onSubmitCapture={onSubmitForm}
@@ -48,24 +33,14 @@ const LoginPage: React.FC = () => {
           type='vertical'
         >
           <h2 className={styles.formTitle}>Sign In</h2>
-
-          <p
-            ref={errRef.current}
-            className={errMsg ? styles.errMsg : styles.offscreen}
-            aria-live='assertive'
-          >
-            {errMsg}
-          </p>
-
           <Input
             className={styles.input}
             type='text'
             id='email'
             autoComplete='off'
-            ref={userRef}
             onChange={onChangeUser}
-            required
             value={user}
+            required
             placeholder='E-mail'
             size='large'
           />
@@ -73,10 +48,9 @@ const LoginPage: React.FC = () => {
             className={styles.input}
             type='password'
             id='password'
-            ref={userRef}
             onChange={onChangePwd}
             value={pwd}
-            placeholder='Parola'
+            placeholder='Password'
             size='large'
           />
           <Link to='/'>
@@ -85,14 +59,13 @@ const LoginPage: React.FC = () => {
               type='submit'
               disabled={!pwd || !user ? true : false}
             >
-              Conectează-te
+              Sign-In
             </button>
           </Link>
-
           <div className={styles.bottomText}>
-            Nu ai parola?
+            Need an Account ?
             <Link to='/register'>
-              <b className={styles.blueText}>Înregistrează-te</b>
+              <b className={styles.bottomTextBlue}>Sign-Up</b>
             </Link>
           </div>
         </Form>

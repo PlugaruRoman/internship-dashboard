@@ -5,5 +5,10 @@ export interface User {
   selectedGender: string;
   pwd: string;
   isChecked: boolean;
+  role: string;
   id: number;
 }
+
+export type UserProps = {
+  user: User;
+};

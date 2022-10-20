@@ -6,13 +6,11 @@ import { Link } from 'react-router-dom';
 
 import { Form, Input, Select, Checkbox, Button } from 'ebs-design';
 
-import { USER_REGEX, MAIL_REGEX, PWD_REGEX } from '../utils/validation';
+import { USER_REGEX, MAIL_REGEX, PWD_REGEX } from 'utils/validation';
 
 import styles from './RegisterPage.module.scss';
 
 const RegisterPage: React.FC = () => {
-  const userRef = React.useRef<HTMLInputElement>(null);
-
   const [firstName, setFirstName] = React.useState<string | number>('');
   const [validFirstName, setValidFirstName] = React.useState<boolean>(false);
 
@@ -91,6 +89,7 @@ const RegisterPage: React.FC = () => {
         selectedGender,
         pwd,
         isChecked,
+        role: 'User',
       });
       setSuccess(true);
     } catch (err) {
@@ -125,14 +124,12 @@ const RegisterPage: React.FC = () => {
       <div className={styles.registerContent}>
         {success ? (
           <div className={styles.onSuccesForm}>
-            <span className={styles.succes}>Successfully ! </span>
-            <div>
-              <Link to='/login'>
-                <Button type='ghost' size='large'>
-                  Sign In
-                </Button>
-              </Link>
-            </div>
+            <span className={styles.message}>Successfully ! </span>
+            <Link to='/login'>
+              <Button type='ghost' size='large'>
+                Sign In
+              </Button>
+            </Link>
           </div>
         ) : (
           <Form onSubmitCapture={onClickSubmitForm} className={styles.form}>
@@ -141,25 +138,23 @@ const RegisterPage: React.FC = () => {
               <span className={styles.titleText}>
                 Already have an account?
                 <Link to='/login'>
-                  <b className={styles.blueText}> Sign In</b>
+                  <b className={styles.titleTextBlue}> Sign In</b>
                 </Link>
               </span>
             </div>
             <Input
               className={styles.input}
               type='text'
-              id='username'
-              ref={userRef}
+              id='firstname'
               autoComplete='off'
               onChange={onChangeFirstName}
-              required
+              value={firstName}
               aria-invalid={validFirstName ? 'false' : 'true'}
-              aria-describedby='uidnote'
-              placeholder='Nume'
+              required
+              placeholder='First Name'
               size='large'
             />
             <p
-              id='uidnote'
               className={
                 firstName && !validFirstName
                   ? styles.instructions
@@ -172,18 +167,16 @@ const RegisterPage: React.FC = () => {
             <Input
               className={styles.input}
               type='text'
-              id='usersecondname'
-              ref={userRef}
+              id='userlastname'
               autoComplete='off'
               onChange={onChangeLastName}
-              required
+              value={lastName}
               aria-invalid={validLastName ? 'false' : 'true'}
-              aria-describedby='uidnotesecond'
-              placeholder='Prenume'
+              required
+              placeholder='Last Name'
               size='large'
             />
             <p
-              id='uidnotesecond'
               className={
                 lastName && !validLastName
                   ? styles.instructions
@@ -197,17 +190,15 @@ const RegisterPage: React.FC = () => {
               className={styles.input}
               type='email'
               id='usermail'
-              ref={userRef}
               autoComplete='off'
               onChange={onChangeMail}
-              required
+              value={mail}
               aria-invalid={validMail ? 'false' : 'true'}
-              aria-describedby='uidnotemail'
-              placeholder='Email'
+              required
+              placeholder='E-mail'
               size='large'
             />
             <p
-              id='uidnotemail'
               className={
                 mail && !validMail ? styles.instructions : styles.offscreen
               }
@@ -216,22 +207,23 @@ const RegisterPage: React.FC = () => {
             </p>
             <Select
               className={styles.input}
+              id='selectgender'
               onChange={onChangeSelectInput}
+              value={selectedGender?.valueOf()}
               placeholder='Select Gender'
               size='large'
-              value={selectedGender?.valueOf()}
               options={[
                 {
-                  text: 'Masculin',
-                  value: 'masculin',
+                  text: 'Male',
+                  value: 'Male',
                 },
                 {
-                  text: 'Feminin',
-                  value: 'feminin',
+                  text: 'Female',
+                  value: 'Female',
                 },
                 {
-                  text: 'Ma abtin',
-                  value: '---',
+                  text: 'hide',
+                  value: 'hiden',
                 },
               ]}
             />
@@ -242,8 +234,7 @@ const RegisterPage: React.FC = () => {
               onChange={onChangePwd}
               required
               aria-invalid={validPwd ? 'false' : 'true'}
-              aria-describedby='pwdnote'
-              placeholder='Parola'
+              placeholder='Password'
               size='large'
             />
             <p
@@ -263,12 +254,10 @@ const RegisterPage: React.FC = () => {
               onChange={onChangeMatchPwd}
               required
               aria-invalid={validMatch ? 'false' : 'true'}
-              aria-describedby='confirmnote'
-              placeholder='Confirmare parola'
+              placeholder='Confirm Password'
               size='large'
             />
             <p
-              id='confirmnote'
               className={
                 matchPwd && !validMatch ? styles.instructions : styles.offscreen
               }
@@ -279,9 +268,9 @@ const RegisterPage: React.FC = () => {
               className={styles.input}
               checkAlign='left'
               id='check'
-              checked={isChecked}
               onChange={changeCheckedBox}
-              text='Sunt deacord cu prelucrarea datelor personale'
+              checked={isChecked}
+              text='I agree with the processing of personal data'
             />
             <div className={styles.submitButton}>
               <button

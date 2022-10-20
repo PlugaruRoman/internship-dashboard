@@ -8,13 +8,14 @@ import { Link, useParams } from 'react-router-dom';
 
 import { Button, Form, Input, Textarea } from 'ebs-design';
 
+import { usePost } from 'context';
+
+import { Post } from 'types/postCardProps';
+
 import styles from './EditPost.module.scss';
-import { Post } from '../../../types/postCardProps';
-import { usePost } from '../../../context';
 
 const EditPost: React.FC = () => {
-  const { changeStatePopUp } = usePost();
-  const userRef = React.useRef<HTMLInputElement>(null);
+  const { changeStatePostPopUp } = usePost();
 
   const { id } = useParams();
 
@@ -90,14 +91,12 @@ const EditPost: React.FC = () => {
     <>
       {success ? (
         <div className={styles.onSuccesForm}>
-          <span className={styles.succes}>Successfully ! </span>
-          <div>
-            <Link to='/posts'>
-              <Button onClick={changeStatePopUp} type='ghost' size='large'>
-                Move to posts
-              </Button>
-            </Link>
-          </div>
+          <span className={styles.succesTitle}>Successfully ! </span>
+          <Link to='/posts'>
+            <Button onClick={changeStatePostPopUp} type='ghost' size='large'>
+              Move to posts
+            </Button>
+          </Link>
         </div>
       ) : (
         data && (
@@ -105,24 +104,24 @@ const EditPost: React.FC = () => {
             <div className={styles.createPostInfo}>
               <span className={styles.formTitle}>Edit Post</span>
             </div>
+
             <Input
               className={styles.input}
               type='text'
               id='title'
               onChange={onChangeTitle}
-              ref={userRef}
+              value={title ? title : data.title}
               required
               placeholder='Title'
               size='large'
-              value={title ? title : data.title}
             />
 
             <Textarea
               className={styles.input}
               id='description'
               onChange={onChangeDescription}
-              placeholder='Description'
               value={description ? description : data.description}
+              placeholder='Description'
             />
 
             <Input
@@ -130,11 +129,10 @@ const EditPost: React.FC = () => {
               id='img'
               type='text'
               onChange={onChangeImg}
-              ref={userRef}
+              value={img ? img : data.img}
               required
               placeholder='Image link (https://example.com/photos/1@2$3%4)'
               size='large'
-              value={img ? img : data.img}
             />
 
             <Input
@@ -142,19 +140,14 @@ const EditPost: React.FC = () => {
               id='date'
               type='date'
               onChange={onChangeDate}
-              ref={userRef}
+              value={date ? date : data.date}
               required
               placeholder='Date'
               size='large'
-              value={date ? date : data.date}
             />
 
             <div className={styles.submitButton}>
-              <button
-                className={'a' ? styles.button : styles.disabled}
-                type='submit'
-                disabled={!'a' ? true : false}
-              >
+              <button className={styles.button} type='submit'>
                 EDIT POST
               </button>
             </div>

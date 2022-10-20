@@ -1,48 +1,32 @@
 {
   "users": [
     {
-      "id": 1666182673180,
+      "id": 1666275508882,
       "firstName": "Roma",
       "lastName": "Plugaru",
       "mail": "romaplugaru@gmail.com",
-      "selectedGender": "masculin",
+      "selectedGender": "Male",
       "pwd": "Plugaruroma94$",
-      "isChecked": true
+      "isChecked": true,
+      "role": "User"
     },
     {
-      "id": 1666182714741,
-      "firstName": "test1",
-      "lastName": "test1",
-      "mail": "test1@mail.ru",
-      "selectedGender": "masculin",
-      "pwd": "Test1!@#",
-      "isChecked": true
-    },
-    {
-      "id": 1666182748606,
-      "firstName": "test2",
-      "lastName": "test2",
-      "mail": "test2@mail.ru",
-      "selectedGender": "feminin",
-      "pwd": "Test2!@#",
-      "isChecked": true
-    },
-    {
-      "id": 1666182786030,
-      "firstName": "test3",
-      "lastName": "test3",
-      "mail": "test3@mail.com",
-      "selectedGender": "---",
+      "id": 1666275540578,
+      "firstName": "test",
+      "lastName": "test",
+      "mail": "test@mail.ru",
+      "selectedGender": "Female",
       "pwd": "Test123!",
-      "isChecked": true
+      "isChecked": true,
+      "role": "User"
     }
   ],
   "posts": [
     {
       "title": "Autumn",
-      "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint facilis quis dignissimos totam in mollitia a atque! Iure, neque fugit ex dolor, veritatis ea sit esse doloribus, excepturi nobis quia!",
+      "description": "Lorem 22, ipsum dolor sit amet consectetur adipisicing elit. Sint facilis quis dignissimos totam in mollitia a atque! Iure, neque fugit ex dolor, veritatis ea sit esse doloribus, excepturi nobis quia!",
       "img": "https://images.unsplash.com/photo-1504788363733-507549153474?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=867&q=80",
-      "date": "2022-10-19",
+      "date": "2022-10-20",
       "id": 1666181733573
     },
     {
@@ -86,6 +70,13 @@
       "img": "https://images.unsplash.com/photo-1461360370896-922624d12aa1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=874&q=80",
       "date": "2022-10-19",
       "id": 1666184124639
+    },
+    {
+      "title": "About water",
+      "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati dolorum soluta doloremque eligendi consequatur odit qui fugiat. Deserunt perferendis quos ipsam dolorum similique, libero tempore dicta adipisci maiores quaerat nam.",
+      "img": "https://images.unsplash.com/photo-1615529328331-f8917597711f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+      "date": "2022-10-20",
+      "id": 1666270565263
     }
   ]
 }

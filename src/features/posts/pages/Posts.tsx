@@ -1,25 +1,28 @@
+import React from 'react';
+
 import axios from 'axios';
+
+import { Link, Route, Routes, useLocation } from 'react-router-dom';
 
 import { useQuery } from 'react-query';
 
 import { Button, Icon } from 'ebs-design';
 
+import { usePost } from 'context';
+
 import PostCard from '../components/PostCard';
 
-import { Link, Route, Routes, useLocation } from 'react-router-dom';
-
-import styles from './Posts.module.scss';
 import CreatePosts from './CreatePosts';
-import { Post } from '../../../types/postCardProps';
-import { usePost } from '../../../context';
 import EditPost from './EditPost';
 
+import { Post } from 'types/postCardProps';
+
 const Posts: React.FC = () => {
-  const { popUp } = usePost();
+  const { postPopUp } = usePost();
   const location = useLocation();
 
   const { data } = useQuery(
-    ['post', location.pathname, popUp],
+    ['post', location.pathname, postPopUp],
     () => {
       return axios
         .get<Post[]>(`http://localhost:3001/posts`)
@@ -36,7 +39,7 @@ const Posts: React.FC = () => {
   return (
     <>
       {location.pathname === '/posts' && (
-        <Link className={styles.link} to={'/posts/create'}>
+        <Link to={'/posts/create'}>
           <Button prefix={<Icon type='edit' />} size='large' type='primary'>
             Create new Post
           </Button>

@@ -4,10 +4,11 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom';
 
 import { Layout, Button, AvatarInline, Sidebar, Icon } from 'ebs-design';
 
+import Users from 'features/users/pages/Users';
+import Posts from 'features/posts/pages/Posts';
+import Dashboard from 'features/dashboard/pages/Dashboard';
+
 import styles from './ControlPanel.module.scss';
-import Users from '../features/users/pages/Users';
-import Posts from '../features/posts/pages/Posts';
-import Dashboard from '../features/dashboard/pages/Dashboard';
 
 const ControlPanel: React.FC = () => {
   const location = useLocation();

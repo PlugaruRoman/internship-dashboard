@@ -1,25 +1,44 @@
 import React from 'react';
 
-import PostProviderProps from '../../types/postProviderProps';
-
 import { PostContext } from './PostContext';
 
+import PostProviderProps from 'types/postProviderProps';
+
 export const PostProvider: React.FC<PostProviderProps> = ({ children }) => {
-  const [popUp, setPopUp] = React.useState(false);
+  const [postPopUp, setPostPopUp] = React.useState<boolean>(false);
   const [postId, setPostId] = React.useState<number>(0);
+  const [userAddPopUp, setUserAddPopUp] = React.useState<boolean>(false);
+  const [userEditPopUp, setUserEditPopUp] = React.useState<boolean>(false);
 
   const getPostId = (id: number) => {
     setPostId(id);
-    setPopUp((prev) => !prev);
+    setPostPopUp((prev) => !prev);
   };
 
-  const changeStatePopUp = () => {
-    setPopUp((prev) => !prev);
+  const changeStatePostPopUp = () => {
+    setPostPopUp((prev) => !prev);
+  };
+
+  const changeStateUserAddPopUp = () => {
+    setUserAddPopUp((prev) => !prev);
+  };
+
+  const changeStateUserEditPopUp = () => {
+    setUserEditPopUp((prev) => !prev);
   };
 
   const value = React.useMemo(
-    () => ({ popUp, changeStatePopUp, postId, getPostId }),
-    [popUp, postId]
+    () => ({
+      postPopUp,
+      changeStatePostPopUp,
+      postId,
+      getPostId,
+      userAddPopUp,
+      changeStateUserAddPopUp,
+      userEditPopUp,
+      changeStateUserEditPopUp,
+    }),
+    [postPopUp, postId, userAddPopUp, userEditPopUp]
   );
 
   return <PostContext.Provider value={value}>{children}</PostContext.Provider>;

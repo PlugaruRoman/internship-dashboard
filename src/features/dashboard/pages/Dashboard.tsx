@@ -14,6 +14,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+
 import { User } from '../../../types/usertype';
 
 const Dashboard: React.FC = () => {
