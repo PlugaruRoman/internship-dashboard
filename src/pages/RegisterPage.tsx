@@ -28,7 +28,9 @@ const RegisterPage: React.FC = () => {
 
   const [isChecked, setIsChecked] = React.useState(false);
 
-  const [selectedGender, setSelectedGender] = React.useState<string>('');
+  const [selectedGender, setSelectedGender] = React.useState<string | number>(
+    ''
+  );
 
   const [success, setSuccess] = React.useState<boolean>(false);
 
@@ -207,9 +209,10 @@ const RegisterPage: React.FC = () => {
             </p>
             <Select
               className={styles.input}
+              valueMode='regular'
               id='selectgender'
               onChange={onChangeSelectInput}
-              value={selectedGender?.valueOf()}
+              value={selectedGender}
               placeholder='Select Gender'
               size='large'
               options={[

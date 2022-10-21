@@ -10,37 +10,24 @@ import { Button, Icon, Table } from 'ebs-design';
 
 import { usePost } from 'context';
 
-import EditUserModal from '../components/EditUserModal';
-import AddUserModal from '../components/AddUserModal';
+import UserModal from '../components/UserModal';
 
 import { User } from 'types/usertype';
 
 import styles from './Users.module.scss';
 
 const Users: React.FC = () => {
-  const {
-    changeStateUserAddPopUp,
-    userAddPopUp,
-    changeStateUserEditPopUp,
-    userEditPopUp,
-  } = usePost();
-
-  const [user, setUser] = React.useState<User>();
+  const { changeStateUserPopUp, userPopUp, user, getUser, setUser } = usePost();
 
   const location = useLocation();
 
-  const getUser = (user: User) => {
+  const onClickDeleteUser = async (user: User) => {
+    await axios.delete(`http://localhost:3001/users/${user.id}`);
     setUser(user);
-    changeStateUserEditPopUp();
-  };
-
-  const onClickDeleteUser = (user: User) => {
-    setUser(user);
-    axios.delete(`http://localhost:3001/users/${user.id}`);
   };
 
   const { data } = useQuery(
-    ['user', userAddPopUp, userEditPopUp, user],
+    ['user', userPopUp, user],
     () => {
       return axios
         .get<User[]>(`http://localhost:3001/users`)
@@ -56,11 +43,16 @@ const Users: React.FC = () => {
 
   return (
     <>
-      {userAddPopUp && <AddUserModal />}
-      {userEditPopUp && user && <EditUserModal user={user} />}
+      {userPopUp && user ? (
+        <UserModal mode='edit' user={user} />
+      ) : userPopUp && !user ? (
+        <UserModal mode='add' />
+      ) : (
+        ''
+      )}
       {location.pathname === '/users' && (
         <Button
-          onClick={changeStateUserAddPopUp}
+          onClick={changeStateUserPopUp}
           prefix={<Icon type='edit' />}
           size='large'
           type='primary'

@@ -9,6 +9,13 @@ export interface User {
   id: number;
 }
 
-export type UserProps = {
+export interface AddUserModalProps {
+  mode: 'add';
+}
+
+export interface EditUserModalProps {
+  mode: 'edit';
   user: User;
-};
+}
+
+export type UserModalProps = AddUserModalProps | EditUserModalProps;

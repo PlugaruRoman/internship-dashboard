@@ -1,14 +1,16 @@
 import React from 'react';
+import { User } from 'types/usertype';
 
 export interface PostContextProps {
   postPopUp: boolean;
   changeStatePostPopUp: () => void;
   postId: number;
   getPostId: (id: number) => void;
-  userAddPopUp: boolean;
-  changeStateUserAddPopUp: () => void;
-  userEditPopUp: boolean;
-  changeStateUserEditPopUp: () => void;
+  userPopUp: boolean;
+  changeStateUserPopUp: () => void;
+  user: User | undefined;
+  getUser: (user: User) => void;
+  setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 }
 
 export const PostContext = React.createContext<PostContextProps>({
@@ -16,8 +18,9 @@ export const PostContext = React.createContext<PostContextProps>({
   changeStatePostPopUp: () => {},
   postId: 0,
   getPostId: () => {},
-  userAddPopUp: false,
-  changeStateUserAddPopUp: () => {},
-  userEditPopUp: false,
-  changeStateUserEditPopUp: () => {},
+  userPopUp: false,
+  changeStateUserPopUp: () => {},
+  user: undefined,
+  getUser: () => {},
+  setUser: () => {},
 });

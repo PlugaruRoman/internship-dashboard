@@ -6,12 +6,16 @@ import { Button, Modal, Form, Input, Select } from 'ebs-design';
 
 import { usePost } from 'context';
 
+import { UserModalProps } from 'types/usertype';
+
 import { MAIL_REGEX, USER_REGEX } from 'utils/validation';
 
 import styles from './UserModal.module.scss';
 
-const AddUserModal: React.FC = () => {
-  const { changeStateUserAddPopUp } = usePost();
+const EditUserModal: React.FC<UserModalProps> = (props) => {
+  const isEdit = props.mode === 'edit';
+
+  const { changeStateUserPopUp } = usePost();
 
   const [firstName, setFirstName] = React.useState<string | number>('');
   const [validFirstName, setValidFirstName] = React.useState<boolean>(false);
@@ -57,16 +61,38 @@ const AddUserModal: React.FC = () => {
 
   const onClickSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
-      await axios.post(`http://localhost:3001/users`, {
-        id: Date.now(),
-        firstName,
-        lastName,
-        mail,
-        selectedGender,
-        role,
-      });
-      changeStateUserAddPopUp();
+      isEdit
+        ? await axios.put(
+            `http://localhost:3001/users/${
+              isEdit ? props.user.id : Date.now()
+            }`,
+            {
+              id: isEdit ? props.user.id : Date.now(),
+              firstName: firstName ? firstName : isEdit && props.user.firstName,
+              lastName: lastName ? lastName : isEdit && props.user.lastName,
+              mail: mail ? mail : isEdit && props.user.mail,
+              selectedGender: selectedGender
+                ? selectedGender
+                : isEdit && props.user.selectedGender,
+              pwd: isEdit && props.user.pwd,
+              isChecked: isEdit ? props.user.isChecked : true,
+              role: role ? role : isEdit && props.user.role,
+            }
+          )
+        : await axios.post(`http://localhost:3001/users`, {
+            id: Date.now(),
+            firstName,
+            lastName,
+            mail,
+            selectedGender,
+            pwd: 1234,
+            isChecked: true,
+            role,
+          });
+
+      changeStateUserPopUp();
     } catch (err) {
       alert('error');
     }
@@ -88,7 +114,13 @@ const AddUserModal: React.FC = () => {
   }, [mail]);
 
   return (
-    <Modal closeOnClickOutside={false} mask open size='small' title='Add User'>
+    <Modal
+      closeOnClickOutside={false}
+      mask
+      open
+      size='small'
+      title={isEdit ? 'Edit User' : 'Add User'}
+    >
       <Form onSubmitCapture={onClickSubmitForm} className={styles.form}>
         <Input
           className={styles.input}
@@ -96,10 +128,10 @@ const AddUserModal: React.FC = () => {
           id='firstname'
           autoComplete='off'
           onChange={onChangeFirstName}
-          value={firstName}
+          value={firstName ? firstName : isEdit ? props.user.firstName : ''}
           required
-          aria-invalid={validFirstName ? 'false' : 'true'}
           placeholder='First Name'
+          aria-invalid={validFirstName ? 'false' : 'true'}
           size='large'
         />
         <p
@@ -116,16 +148,17 @@ const AddUserModal: React.FC = () => {
         <Input
           className={styles.input}
           type='text'
-          id='userlastname'
+          id='lastname'
           autoComplete='off'
           onChange={onChangeLastName}
-          value={lastName}
+          value={lastName ? lastName : isEdit ? props.user.lastName : ''}
           required
-          aria-invalid={validLastName ? 'false' : 'true'}
           placeholder='Last Name'
+          aria-invalid={validLastName ? 'false' : 'true'}
           size='large'
         />
         <p
+          id='uidnotesecond'
           className={
             lastName && !validLastName ? styles.instructions : styles.offscreen
           }
@@ -133,17 +166,16 @@ const AddUserModal: React.FC = () => {
           4 to 24 characters . Must begin with a letter. Letters , numbers ,
           underscores , hyphens allowed .
         </p>
-
         <Input
           className={styles.input}
           type='email'
           id='usermail'
           autoComplete='off'
           onChange={onChangeMail}
-          value={mail}
+          value={mail ? mail : isEdit ? props.user.mail : ''}
           required
-          aria-invalid={validMail ? 'false' : 'true'}
           placeholder='E-mail'
+          aria-invalid={validMail ? 'false' : 'true'}
           size='large'
         />
         <p
@@ -156,9 +188,14 @@ const AddUserModal: React.FC = () => {
 
         <Select
           className={styles.input}
-          id='selectgender'
           onChange={onChangeSelectInput}
-          value={selectedGender?.valueOf()}
+          value={
+            selectedGender
+              ? selectedGender
+              : isEdit
+              ? props.user.selectedGender
+              : ''
+          }
           placeholder='Select Gender'
           size='large'
           options={[
@@ -180,7 +217,7 @@ const AddUserModal: React.FC = () => {
         <Select
           className={styles.input}
           onChange={onChangeSelectRole}
-          value={role?.valueOf()}
+          value={role ? role : isEdit ? props.user.role : ''}
           placeholder='Account Role'
           size='large'
           options={[
@@ -198,27 +235,31 @@ const AddUserModal: React.FC = () => {
         <div className={styles.submitButton}>
           <button
             className={
-              firstName && lastName && mail && selectedGender && role
+              isEdit
+                ? styles.button
+                : firstName && lastName && mail && selectedGender && role
                 ? styles.button
                 : styles.disabled
             }
             type='submit'
             disabled={
-              !firstName || !lastName || !mail || !selectedGender || !role
+              isEdit
+                ? false
+                : !firstName || !lastName || !mail || !selectedGender || !role
                 ? true
                 : false
             }
           >
-            Add-User
+            {isEdit ? 'Edit-User' : 'Add-User'}
           </button>
         </div>
       </Form>
 
-      <Button className={styles.buttons} onClick={changeStateUserAddPopUp}>
+      <Button className={styles.buttons} onClick={changeStateUserPopUp}>
         Cancel
       </Button>
     </Modal>
   );
 };
 
-export default AddUserModal;
+export default EditUserModal;
