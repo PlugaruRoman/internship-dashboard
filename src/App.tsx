@@ -17,8 +17,8 @@ const queryClient = new QueryClient();
 
 const App: React.FC = () => {
   return (
-    <PostProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <PostProvider>
         <div className={styles.app}>
           <Routes>
             <Route path='/*' element={<ControlPanel />} />
@@ -26,8 +26,8 @@ const App: React.FC = () => {
             <Route path='/register' element={<RegisterPage />} />
           </Routes>
         </div>
-      </QueryClientProvider>
-    </PostProvider>
+      </PostProvider>
+    </QueryClientProvider>
   );
 };
 

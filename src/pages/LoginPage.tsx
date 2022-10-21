@@ -1,5 +1,7 @@
 import React from 'react';
 
+import axios from 'axios';
+
 import { Link } from 'react-router-dom';
 
 import { Form, Input } from 'ebs-design';
@@ -18,17 +20,37 @@ const LoginPage: React.FC = () => {
     setPwd(value);
   };
 
-  const onSubmitForm = async (e: React.FormEvent) => {
+  const onClickSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
-    setPwd('');
-    setUser('');
+    try {
+      const response = await axios.post(
+        `https://tribes.devebs.net/users/login`,
+        {
+          email: user,
+          password: pwd,
+        }
+      );
+
+      if (response) {
+        localStorage.setItem(
+          'authorization',
+          JSON.stringify(response.data.access)
+        );
+      }
+      await axios.post(
+        `https://tribes.devebs.net/users/all-admin`,
+        localStorage.getItem('authorization')
+      );
+    } catch (err) {
+      alert('error');
+    }
   };
 
   return (
     <div className={styles.loginPage}>
       <div className={styles.loginContent}>
         <Form
-          onSubmitCapture={onSubmitForm}
+          onSubmitCapture={onClickSubmitForm}
           className={styles.form}
           type='vertical'
         >
@@ -53,15 +75,15 @@ const LoginPage: React.FC = () => {
             placeholder='Password'
             size='large'
           />
-          <Link to='/'>
-            <button
-              className={pwd && user ? styles.button : styles.disabled}
-              type='submit'
-              disabled={!pwd || !user ? true : false}
-            >
-              Sign-In
-            </button>
-          </Link>
+
+          <button
+            className={pwd && user ? styles.button : styles.disabled}
+            type='submit'
+            disabled={!pwd || !user ? true : false}
+          >
+            Sign-In
+          </button>
+
           <div className={styles.bottomText}>
             Need an Account ?
             <Link to='/register'>
