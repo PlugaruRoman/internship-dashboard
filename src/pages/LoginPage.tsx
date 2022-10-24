@@ -2,7 +2,7 @@ import React from 'react';
 
 import axios from 'axios';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Form, Input } from 'ebs-design';
 
@@ -11,6 +11,8 @@ import styles from './LoginPage.module.scss';
 const LoginPage: React.FC = () => {
   const [user, setUser] = React.useState<string | number>('');
   const [pwd, setPwd] = React.useState<string | number>('');
+
+  const navigate = useNavigate();
 
   const onChangeUser = (value: React.SetStateAction<string | number>) => {
     setUser(value);
@@ -23,26 +25,25 @@ const LoginPage: React.FC = () => {
   const onClickSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        `https://tribes.devebs.net/users/login`,
-        {
+      await axios
+        .post(`https://tribes.devebs.net/users/login`, {
           email: user,
           password: pwd,
-        }
-      );
+        })
+        .then((res) => {
+          localStorage.setItem('user', res.config.data);
+          localStorage.setItem('Token', res.data.access);
+        });
 
-      if (response) {
-        localStorage.setItem(
-          'authorization',
-          JSON.stringify(response.data.access)
-        );
-      }
-      await axios.post(
-        `https://tribes.devebs.net/users/all-admin`,
-        localStorage.getItem('authorization')
-      );
+      await axios
+        .get(`https://tribes.devebs.net/users/all-admin`, {
+          headers: {
+            Authorization: 'Token ' + localStorage.getItem('Token'),
+          },
+        })
+        .then((res) => navigate('/'));
     } catch (err) {
-      alert('error');
+      alert('incorrect username or  password');
     }
   };
 

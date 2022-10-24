@@ -15,7 +15,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-import { User } from '../../../types/usertype';
+import { User } from '../../types/usertype';
 
 const Dashboard: React.FC = () => {
   const user = useQuery(

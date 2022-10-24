@@ -32,7 +32,7 @@
     },
     {
       "id": 1666351000414,
-      "firstName": "awdf",
+      "firstName": "awdfwawd",
       "lastName": "awfaf",
       "mail": "awfafw@mail.com",
       "selectedGender": "Male",
@@ -59,6 +59,16 @@
       "pwd": "Asdasd123!",
       "isChecked": true,
       "role": "User"
+    },
+    {
+      "id": 1666603539881,
+      "firstName": "qwerqwer",
+      "lastName": "qwerqwer",
+      "mail": "qwer@mail.com",
+      "selectedGender": "Male",
+      "pwd": "Qwerqwer123!",
+      "isChecked": true,
+      "role": "Moderator"
     }
   ],
   "posts": [
@@ -117,6 +127,13 @@
       "img": "https://images.unsplash.com/photo-1615529328331-f8917597711f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
       "date": "2022-10-20",
       "id": 1666270565263
+    },
+    {
+      "title": "Dell",
+      "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse nesciunt ad, eaque, itaque ipsa accusantium nisi laudantium quos aut iste commodi quibusdam ipsam amet, nihil voluptatibus suscipit sequi quam eligendi. ",
+      "img": "https://images.unsplash.com/photo-1662581872342-3f8e0145668f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=80",
+      "date": "2022-10-24",
+      "id": 1666605974286
     }
   ]
 }
